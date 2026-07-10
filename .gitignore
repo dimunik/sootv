@@ -1,0 +1,5 @@
+node_modules/
+data/sootv.db
+data/sootv.db-wal
+data/sootv.db-shm
+data/parsed/

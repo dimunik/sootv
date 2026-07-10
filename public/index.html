@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>СООТВ — История профессий и специальностей СПО</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="vendor/vis-network.min.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="brand">
+        <h1>СООТВЕТСТВИЕ ПРОФЕССИЙ И СПЕЦИАЛЬНОСТЕЙ СПО</h1>
+        <p class="subtitle">1999-2022</p>
+      </div>
+      <div class="stats" id="stats"></div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="search-section">
+      <div class="search-box">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Введите шифр или наименование профессии/специальности..."
+          autocomplete="off"
+        />
+        <button id="searchBtn" type="button">Найти</button>
+      </div>
+      <div class="search-results" id="searchResults"></div>
+    </section>
+
+    <section class="content" id="content" hidden>
+      <aside class="sidebar">
+        <div class="selected-entry" id="selectedEntry"></div>
+        <div class="timeline" id="timeline"></div>
+      </aside>
+      <div class="graph-container">
+        <div id="graph"></div>
+      </div>
+    </section>
+
+    <section class="empty-state" id="emptyState">
+      <div class="empty-icon">🔍</div>
+      <h2>Поиск по классификаторам СПО</h2>
+      <p>Введите любой исторический шифр или наименование — система построит полную цепочку соответствий между приказами:</p>
+      <ul class="order-list" id="orderList"></ul>
+    </section>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="legacy-links.js"></script>
+  <script src="data-runtime.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
