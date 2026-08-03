@@ -20,8 +20,11 @@ const orderList = document.getElementById('orderList');
 const TYPE_LABELS = { profession: 'Профессия', specialty: 'Специальность', group: 'Группа' };
 
 const ORDER_COLORS = {
-  1999: '#78716c',
-  2003: '#a8a29e',
+  1988: '#57534e',
+  1994: '#78716c',
+  1999: '#a8a29e',
+  2001: '#94a3b8',
+  2003: '#64748b',
   2009: '#3b82f6',
   2013: '#8b5cf6',
   2014: '#6366f1',

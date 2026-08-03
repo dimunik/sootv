@@ -6,18 +6,39 @@ window.__SOOTV_LINEAGES__ = window.__SOOTV_LINEAGES__ || {};
   const LEGACY_LINKS = window.__SOOTV_LEGACY_LINKS__ || {};
 
   const ORDERS = {
-    ok_009_2003: {
-      id: 'ok_009_2003',
-      year: 2003,
-      number: '276-СТ',
-      title: 'ОК 009-2003 (классификатор специальностей)',
-      side: 'target',
+    spo_224_1988: {
+      id: 'spo_224_1988',
+      year: 1988,
+      number: '224',
+      title: 'Приказ Гособразования СССР № 224 (перечень специальностей ссузов)',
+      side: 'historical',
+    },
+    spo_4_1994: {
+      id: 'spo_4_1994',
+      year: 1994,
+      number: '4',
+      title: 'Постановление Госкомвуза РФ № 4 (классификатор специальностей СПО)',
+      side: 'historical',
     },
     npo_1362: {
       id: 'npo_1362',
       year: 1999,
       number: '1362',
       title: 'Постановление Правительства РФ № 1362 (профессии НПО)',
+      side: 'target',
+    },
+    spo_2572_2001: {
+      id: 'spo_2572_2001',
+      year: 2001,
+      number: '2572',
+      title: 'Приказ Минобразования № 2572 (классификатор специальностей СПО)',
+      side: 'historical',
+    },
+    ok_009_2003: {
+      id: 'ok_009_2003',
+      year: 2003,
+      number: '276-СТ',
+      title: 'ОК 009-2003 (классификатор специальностей)',
       side: 'target',
     },
     order_354_2009: {
@@ -51,6 +72,33 @@ window.__SOOTV_LINEAGES__ = window.__SOOTV_LINEAGES__ || {};
   };
 
   const MAPPINGS = {
+    order_623_1994: {
+      id: 'order_623_1994',
+      year: 1994,
+      number: '623',
+      title: 'Приказ Госкомвуза № 623 (специальности 1994 ↔ 1988)',
+      fromOrder: 'spo_4_1994',
+      toOrder: 'spo_224_1988',
+      entryType: 'specialty',
+    },
+    order_2714_2001: {
+      id: 'order_2714_2001',
+      year: 2001,
+      number: '2714',
+      title: 'Приказ Минобразования № 2714 (специальности 2001 ↔ 1994)',
+      fromOrder: 'spo_2572_2001',
+      toOrder: 'spo_4_1994',
+      entryType: 'specialty',
+    },
+    order_4377_2003: {
+      id: 'order_4377_2003',
+      year: 2003,
+      number: '4377',
+      title: 'Приказ Минобразования № 4377 (ОК 009-2003 ↔ 2001)',
+      fromOrder: 'ok_009_2003',
+      toOrder: 'spo_2572_2001',
+      entryType: 'specialty',
+    },
     order_740_2009: {
       id: 'order_740_2009',
       year: 2009,
@@ -108,6 +156,9 @@ window.__SOOTV_LINEAGES__ = window.__SOOTV_LINEAGES__ || {};
   };
 
   const linkOrder = [
+    'order_623_1994',
+    'order_2714_2001',
+    'order_4377_2003',
     'order_740_2009',
     'order_835_2009',
     'order_632_2014_prof',
@@ -132,13 +183,18 @@ window.__SOOTV_LINEAGES__ = window.__SOOTV_LINEAGES__ || {};
       /^\d{2}\.\d{2}\.\d{2}$/.test(t) ||
       /^\d{2}\.\d{2}\.00$/.test(t) ||
       /^\d{6}(\.\d{2})?$/.test(t) ||
+      /^\d{4}$/.test(t) ||
       /^\d{1,2}\.\d{1,2}(\.\d+)?$/.test(t)
     );
   }
 
   function isGroupCode(code) {
     if (!code) return false;
-    return code.endsWith('.00') || (code.length === 6 && code.endsWith('00') && !code.includes('.'));
+    return (
+      code.endsWith('.00') ||
+      (code.length === 6 && code.endsWith('00') && !code.includes('.')) ||
+      (/^\d{4}$/.test(code) && code.endsWith('00'))
+    );
   }
 
   function parseNpo1362Cell(text) {
@@ -265,6 +321,9 @@ window.__SOOTV_LINEAGES__ = window.__SOOTV_LINEAGES__ || {};
       orders: ORDERS,
       mappings: MAPPINGS,
       links: [
+        ...(LEGACY_LINKS.order_623_1994 || []),
+        ...(LEGACY_LINKS.order_2714_2001 || []),
+        ...(LEGACY_LINKS.order_4377_2003 || []),
         ...(LEGACY_LINKS.order_740_2009 || []),
         ...(LEGACY_LINKS.order_835_2009 || []),
         ...parseTableMapping(data632.tables[2] || [], 'order_632_2014_prof', MAPPINGS.order_632_2014_prof),
